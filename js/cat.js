@@ -10,15 +10,32 @@ var cats = [{
 }];
 
 document.addEventListener('DOMContentLoaded', function() {
-    var catsElems = document.getElementById('cats');
-    if (catsElems) {
+    var catsList = document.getElementById('catsList');
+    if (catsList) {
         cats.forEach(function(cat) {
-            loadDOMElements(catsElems, cat);
+            buildList(catsList, cat);
         });
     }
+    var resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', function() {
+        cats.map(cat => cat.reset = true);
+        var allParagraphs = document.querySelectorAll('p');
+        [...allParagraphs].map(paragraph => paragraph.innerText = 0);
+    });
 });
 
-function loadDOMElements(catsElem, cat) {
+function buildList(catsListView, cat) {
+    var imgThumb = document.createElement('img');
+    imgThumb.setAttribute('src', cat.imgUrl);
+    catsListView.appendChild(imgThumb);
+    imgThumb.addEventListener('click', function() {
+        var catDetail = document.getElementById('catDetail');
+        catDetail.innerHTML = '';
+        loadCatElement(catDetail, cat);
+    });
+}
+
+function loadCatElement(catDetail, cat) {
     var nameElem = document.createElement('h3');
     nameElem.innerText = cat.name;
     var imgElem = document.createElement('img');
@@ -31,16 +48,10 @@ function loadDOMElements(catsElem, cat) {
                 counterClick = 0;
                 cat.reset = false;
             }
-            paragraphElem.innerText = counterClick++;
+            paragraphElem.innerText = ++counterClick;
         }
     }(counterClick=0)));
-    catsElem.appendChild(nameElem);
-    catsElem.appendChild(imgElem);
-    catsElem.appendChild(paragraphElem);
-
-    resetBtn.addEventListener('click', function() {
-       cats.map(cat => cat.reset = true);
-       var allParagraphs = document.querySelectorAll('p');
-       [...allParagraphs].map(paragraph => paragraph.innerText = 0);
-    });
+    catDetail.appendChild(nameElem);
+    catDetail.appendChild(imgElem);
+    catDetail.appendChild(paragraphElem);
 }

@@ -5,10 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cat Clicker</title>
         <script src="./js/cat.js"></script>
+        <style>
+            #catsList img {
+                width: 120px;
+                max-height: 80px;
+                margin: 5px;
+            }
+        </style>
     </head>
     <body>
-        <div id="cats">
-            <button id="resetBtn">Reset</button>
-        </div>
+        <div id="catsList"></div>
+        <div id="catDetail"></div>
+        <button id="resetBtn">Reset</button>
     </body>
 </html>
